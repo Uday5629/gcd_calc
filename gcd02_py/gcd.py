@@ -1,3 +1,7 @@
+import random
+
+# ////////////////////// Iterative function ///////////////////////////////
+
 def gcd(a, b):
     """
     Function to find the GCD of two numbers using the Euclidean algorithm.
@@ -5,6 +9,16 @@ def gcd(a, b):
     while b != 0:
         a, b = b, a % b
     return a
+
+# /////////////////////// Recursive function ////////////////////////////
+
+# def gcd(a, b):
+#     # Base case: if b is 0, return a (the current value of a is the GCD)
+#     if b == 0:
+#         return a
+#     # Recursive case: call gcd function with arguments b and the remainder of a divided by b
+#     return gcd(b, a % b)
+
 
 def gcd_of_multiple_numbers(numbers):
     """
@@ -18,24 +32,26 @@ def gcd_of_multiple_numbers(numbers):
         result = gcd(result, num)
     return result
 
-# Function to take input for n numbers
-def take_input():
-    try:
-        n = int(input("Enter the number of elements: "))
-        numbers = []
-        for i in range(n):
-            num = int(input("Enter number {}: ".format(i+1)))
-            numbers.append(num)
-        return numbers
-    except ValueError:
-        print("Invalid input. Please enter integers only.")
-        return take_input()
+# Function to generate n random numbers
+def generate_random_numbers(n, min_value=1, max_value=100):
+    """
+    Function to generate n random numbers within a given range.
+    """
+    return [random.randint(min_value, max_value) for _ in range(n)]
 
 # Main function
 def main():
-    numbers = take_input()
-    if numbers:
-        print("The GCD of", numbers, "is:", gcd_of_multiple_numbers(numbers))
+    try:
+        n = int(input("Enter the number of elements: "))
+        if n <= 0:
+            print("Number of elements should be greater than 0.")
+            return
+
+        numbers = generate_random_numbers(n)
+        print("Generated numbers:", numbers)
+        print("The GCD of the generated numbers is:", gcd_of_multiple_numbers(numbers))
+    except ValueError:
+        print("Invalid input. Please enter an integer.")
 
 if __name__ == "__main__":
     main()
